@@ -13,15 +13,15 @@ function ConversationSuggestionService(){
 
     return {
         /*
-         * Get a suggestion list base on the given topic, the sentiment type is defined in the global
-         * @param topic, string
+         * Get a suggestion list base on the given text, the sentiment type is defined in the global
+         * @param text, string
          * @return, {answers:[{message:string,
          *                     score:float (-1~1),
          *                     sentiment:string},
          *                     ...]}
          *
          */
-        getSuggestAnswers:function(topic){
+        getSuggestAnswers:function(text, callback){
 
         },
 
