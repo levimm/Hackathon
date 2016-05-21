@@ -4,13 +4,17 @@
 
 var CONST = require("../common/global").CONST;
 var Service = require("./service").Service;
+var HOD = require("havenondemand");
 
-
-exports.ResourceLocatorService = ResourceLocatorService;
 
 function ResourceLocatorService(){
     //all the training data files should start with trainingData*.txt
     let _dataRootPath = "../data";
+    let _hodAPIkey    = "9056c4dc-ccbc-47a7-9e6b-2bd676851fa5";
+    let _hodVersion   = "v1";
+
+    //http://user:pass@proxy.server.com:3128
+    //let _hodProxy = null;
 
     return {
         /*
@@ -22,8 +26,17 @@ function ResourceLocatorService(){
          */
         iterateTrainingData:function *(){
 
+        },
+
+        getHODClient:function(){
+            return HOD.HODClient(_hodAPIkey, _hodVersion);
+        },
+
+        getCurrentLanguage:function(){
+            return "eng";
         }
     }
 }
 
 ResourceLocatorService.__proto__ = Service;
+exports.ResourceLocatorService = ResourceLocatorService;

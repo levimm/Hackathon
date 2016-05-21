@@ -12,6 +12,17 @@ var CONST = {
     TITLE_TYPES:{
         Male:"Male",
         Female:"Female"
+    },
+
+    HOD_APIS:{
+        analyzesentiment:"analyzesentiment",
+        recommend:"recommend",
+        createtextindex:"createtextindex",
+        listresources:"listresources",
+        deletetextindex:"deletetextindex",
+        findrelatedconcepts:"findrelatedconcepts",
+        findsimilar:"findsimilar",
+        addtotextindex:"addtotextindex"
     }
 };
 
