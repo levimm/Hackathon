@@ -1,10 +1,9 @@
 /**
  * Created by shange on 5/21/2016.
  */
-var CONST = require("../common/global").CONST;
+var CONST   = require("../common/global").CONST;
 var Service = require("./service").Service;
-var UUID = require("uuid");
-exports.TrainDataParserService = TrainDataParserService;
+var UUID    = require("uuid");
 
 function TrainDataParserService(){
     let _currentSentimentStatus = CONST.SENTIMENT_TYPES.Neutral;
@@ -22,7 +21,7 @@ function TrainDataParserService(){
          * @return, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4
-         *      relativeDocuments:[reference0, ...] it is a uuid.v4 array
+         *      relativeDocuments:reference0 it is a uuid.v4 array
          *      content:string
          * }]}
          *
@@ -34,3 +33,4 @@ function TrainDataParserService(){
 }
 
 TrainDataParserService.__proto__ = Service;
+exports.TrainDataParserService = TrainDataParserService;
