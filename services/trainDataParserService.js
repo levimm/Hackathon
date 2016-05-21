@@ -19,7 +19,7 @@ function TrainDataParserService(){
          * B: YYY...   //which generate a uuid UUID1
          * the relativeDocument field of XXX... document should be [UUID1]
          * 
-         * @param file, string
+         * @param content, string
          * @return, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4
@@ -28,11 +28,11 @@ function TrainDataParserService(){
          * }]}
          *
          */
-        parse:function(file){
+        parse:function(content){
             var documents = [];
             var uuidFormer = UUID.v4();
             var uuidLatter = UUID.v4();
-            fs.readFileSync(file).toString().split('\n').forEach(function (line) { 
+            content.split('\n').forEach(function (line) { 
                 var document = {
                     title: line[0] === 'F' ? CONST.TITLE_TYPES.Female : CONST.TITLE_TYPES.Male,
                     reference: uuidFormer,
