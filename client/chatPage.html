@@ -1,0 +1,208 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Hackathon</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.5em;
+            background-image: url(img/背景4.jpg);
+            background-attachment: repeat;
+            text-align: center;
+
+        }
+
+        #contain {
+            width: 300px;
+            height: 500px;
+            margin: 100px auto;
+            border-width: 15px;
+            border-style: solid;
+            -moz-border-radius: 30px;
+            -webkit-border-radius: 30px;
+            -o-border-radius: 30px;
+            -ms-border-radius: 30px;
+            -khtml-border-radius: 30px;
+            border-radius: 30px;
+            border-color: #EFF7FF;
+            -moz-box-shadow: 0 2px 10px black;
+            -webkit-box-shadow: 0 2px 10px black;
+            -o-box-shadow: 0 2px 10px black;
+            box-shadow: 0 2px 10px black;
+            position: relative;
+            background-image: url(img/5.jpg);
+            background-position: center;
+        }
+
+        #content {
+            top: 10px;
+            left: 0px;
+            height: 350px;
+            width: 280px;
+            padding: 10px;
+            position: absolute;
+            border-bottom-style: solid;
+            border-bottom-color: #fcfcba;
+            border-bottom-width: 15px;
+            overflow: auto;
+            font-family: "华文行楷";
+            font-size: 20px;
+            overflow: auto;
+
+        }
+
+        #but1 {
+            height: 30px;
+            bottom: 7px;
+            position: absolute;
+            line-height: 30px;
+            width: 180px;
+            left: 60px;
+            font-size: 17px;
+
+            text-align: start;
+        }
+
+        #but2 {
+            right: 3px;
+            height: 30px;
+            bottom: 7px;
+            position: absolute;
+            font-size: 17px;
+            text-align: center;
+        }
+
+        /*#footer{
+            width:40px;
+            height:40px;
+            bottom:3px;
+            position:absolute;
+            left:4px;
+        }
+        */
+        .right {
+            background-color: white;
+            height: auto;
+            width: auto;
+            float: right;
+            border-width: 2px;
+            border-style: solid;
+            border-color: pink;
+            border-radius: 15px;
+
+        }
+
+        .left {
+            float: left;
+            background-color: #66ff66;
+            height: auto;
+            width: auto;
+            border-width: 2px;
+            border-style: solid;
+            border-color: black;
+            border-radius: 15px;
+
+        }
+
+        #tupian {
+            width: 42px;
+            height: 42px;
+            bottom: 3px;
+            position: absolute;
+            left: 4px;
+        }
+
+        #chatcontent {
+
+            width: 280px;
+            height: 40px;
+
+        }
+
+        #but2 {
+            width: 39px;
+            height: 39px;
+            bottom: 3px;
+            position: absolute;
+            right: 4px;
+        }
+
+        #div-left {
+            float: left;
+            width: 49%;
+            border: 1px solid #F00
+        }
+
+        #div-right {
+            float: left;
+            width: 49%;
+            border: 1px solid #000
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div id="div-left">
+        <div id="contain">
+            <div id="content">
+                <div id="chatcontent"></div>
+            </div>
+            <input type="text" id="but1" value="">
+
+            <div id="but2"><img src="img/6.png" width="35px" height="35px" id="tuplen"></div>
+
+            <div id="tupian"><img src="img/1.png" id="footer" width="39px" height="39px"></div>
+        </div>
+    </div>
+</div>
+<div id="div-right">
+
+</div>
+</div>
+</body>
+<script Language="JavaScript">
+    window.onload = function () {
+        var oCon = document.getElementById('contain');
+        var oBu1 = document.getElementById('but1');
+        var oBu2 = document.getElementById('but2');
+//var oCt=document.getElementById('content');
+        var oFoot = document.getElementById('footer');
+        var Onoff = true;
+        var oText = document.getElementById('chatcontent');
+        var oTu = document.getElementById('tupian');
+        var oTp = document.getElementById('tuplen');
+        oTu.onclick = function () {
+            if (Onoff) {
+                oFoot.src = 'img/2.png';
+                //oBu2.value='女神';
+                oTp.src = 'img/7.png';
+                Onoff = false;
+            }
+            else {
+                oFoot.src = 'img/1.png';
+                //oBu2.value='屌丝';
+                oTp.src = 'img/6.png';
+                Onoff = true;
+
+            }
+            ;
+        };
+        oBu2.onclick = function () {
+            if (Onoff) {
+                oText.innerHTML = oText.innerHTML + '<br/>' + '<div class="right">' + oTu.innerHTML + '</div>' + '<div class="right">' + oBu1.value + '</div>' + '<br/>';
+            }
+            else {
+
+                oText.innerHTML = oText.innerHTML + '<br/>' + '<div class="left">' + oTu.innerHTML + '</div>' + '<div class="left">' + oBu1.value + '</div>' + '<br/>';
+            }
+            ;
+            oBu1.value = '';
+
+        };
+    };
+</script>
+</html>
