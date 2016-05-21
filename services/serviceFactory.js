@@ -2,7 +2,7 @@
  * Created by shange on 5/21/2016.
  */
 
-exports.serviceFactory = serviceFactory;
+exports.ServiceFactory = serviceFactory;
 
 var serviceFactory = {
     getService:function(service){

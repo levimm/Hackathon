@@ -18,7 +18,7 @@ function TrainDataParserService(){
          * B: YYY...   //which generate a uuid UUID1
          * the relativeDocuments field of XXX... document should be [UUID1]
          * 
-         * @param topic, string
+         * @param content, string
          * @return, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4

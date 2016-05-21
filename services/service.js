@@ -9,4 +9,4 @@ var Service = {
     getInstance:function(){
         return new this();
     }
-}
+};
