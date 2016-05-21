@@ -2,8 +2,6 @@
  * Created by shange on 5/21/2016.
  */
 
-exports.CONST = CONST;
-
 var CONST = {
     SENTIMENT_TYPES:{
         Positive:"Positive",
@@ -16,3 +14,5 @@ var CONST = {
         Female:"Female"
     }
 };
+
+exports.CONST = CONST;
