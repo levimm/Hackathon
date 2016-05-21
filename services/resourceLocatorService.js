@@ -38,6 +38,10 @@ function ResourceLocatorService(){
 
         getCurrentLanguage:function(){
             return "eng";
+        },
+
+        getCurrentFlavor:function(){
+            return "explorer";
         }
     }
 }

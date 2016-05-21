@@ -40,30 +40,30 @@ var c = lr.getHODClient();
  * }
  */
 
-
+//
+//
 //var document0 = {title:CONST.TITLE_TYPES.Female,
 //    reference         :UUID.v4(),
 //    relativeDocument  :null,
-//    content           :"hello"
+//    content           :"Nice to see you"
 //};
 //
-//var document1 = {title:CONST.TITLE_TYPES.Female,
+//var document1 = {title:CONST.TITLE_TYPES.Male,
 //    reference:UUID.v4(),
 //    relativeDocument:null,
-//    content:"hello"
+//    content:"Nice to see you too"
 //};
 //
-//document0.relativeDocument = document1.reference;
 //
-//ps.addDocumentsToIndex({documents:[document0, document1]});
+////
+//document0.relativeDocument = document1.reference;
+////
+//ps.addDocumentsToIndex({document:[document1]}, CONST.TITLE_TYPES.Male).then((v)=>{
+//    console.log("success added document");
+//}).catch((e)=>{
+//    console.error(e);
+//});
 
-c.call(CONST.HOD_APIS.createtextindex,
-       {index:"Female", flavor:"standard"},
-       (err, rsp, body)=>{
-           console.log(err);
-           console.log(rsp);
-           console.log(body);
-       });
 
 //
 //ps.initDocumentIndexes([CONST.TITLE_TYPES.Male, CONST.TITLE_TYPES.Female]).then((v)=>{
@@ -71,5 +71,10 @@ c.call(CONST.HOD_APIS.createtextindex,
 //}).catch((e)=>{
 //    console.error("fail to call initDocumentIndexes");
 //});
-//
 
+cs.getSuggestAnswers("see you later").then((v)=>{
+    v = JSON.stringify(v);
+    console.log(`Success ${v}`);
+}).catch((e)=>{
+    console.error(`Failed ${e}`);
+});

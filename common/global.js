@@ -23,7 +23,8 @@ var CONST = {
         findrelatedconcepts:"findrelatedconcepts",
         findsimilar:"findsimilar",
         addtotextindex:"addtotextindex",
-        indexstatus:"indexstatus"
+        indexstatus:"indexstatus",
+        getcontent:"getcontent"
     }
 };
 
