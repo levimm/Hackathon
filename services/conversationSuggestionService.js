@@ -25,7 +25,6 @@ function ConversationSuggestionService(){
         let c = _resourceLocator.getHODClient();
         c.call(CONST.HOD_APIS.analyzesentiment, {text:topic}, (err, rsp, body)=>{
             if(!err){
-                body = JSON.parse(body);
                 if(!body.error){
                     _currentSentimentScore += body.aggregate.score;
                     _currentSentimentScore /= _latestTopics.length;
@@ -58,12 +57,15 @@ function ConversationSuggestionService(){
                     let c = _resourceLocator.getHODClient();
                     c.call(CONST.HOD_APIS.findsimilar, {text:topic}, (err, rsp, body)=>{
                         if(!err){
+                            console.error(`Fail to call getSuggestAnswers(${topic}) ${err}`);
                             rj({result:false, error:err});
+                            return;
                         }
                         else{
-                            body = JSON.parse(body);
                             if(body.error){
+                                console.error(`Fail to call getSuggestAnswers(${topic}) ${body.error}`);
                                 rj({result:null, error:body.error});
+                                return;
                             }
                             else{
                                 let documents = body.documents;
@@ -72,12 +74,14 @@ function ConversationSuggestionService(){
                                 });
                                 _updateLatestTopics(topic);
                                 rs({result:answers, error:null});
+                                return;
                             }
                         }
                     });
                 }
                 else{
                     rs({result:{answers:[]}, error:null});
+                    return;
                 }
             });
 

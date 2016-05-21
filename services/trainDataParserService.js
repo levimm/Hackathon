@@ -15,13 +15,13 @@ function TrainDataParserService(){
          * example
          * A: XXX...   //which generate a uuid UUID0
          * B: YYY...   //which generate a uuid UUID1
-         * the relativeDocuments field of XXX... document should be [UUID1]
+         * the relativeDocument field of XXX... document should be [UUID1]
          * 
          * @param content, string
          * @return, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4
-         *      relativeDocuments:reference0 it is a uuid.v4 array
+         *      relativeDocument:reference0 it is a uuid.v4 array
          *      content:string
          * }]}
          *

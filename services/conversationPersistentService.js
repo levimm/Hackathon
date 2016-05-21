@@ -18,36 +18,41 @@ function ConversationPersistentService(){
          * init the document indexes only required for create the document in the first time 
          */
         initDocumentIndexes:function(indexes){
-            let p = new Promise((rs, rj)=>{
-                let c = _RL.getHODClient();
-                _.forEach(indexes, (index)=>{
-                    c.call(CONST.HOD_APIS.createtextindex, {index:index, flavor:"standard"}, (err, rsp, body)=>{
-                        if(!err){
-                            console.error(`Fail to call initDocumentIndexes ${err}`);
-                            rj({result:false, error:err});
-                        }
-                        else{
-                            body = JSON.parse(body);
-                            if(body.error){
-                                console.error(`Fail to call initDocumentIndexes ${body.error}`);
-                                rj({result:false, error:body.error});
-                            }
-                            else{
-                                rs({result:true, error:null});
-                            }
-                        }
-                    });
+            let c = _RL.getHODClient();
+            return _.reduce(indexes, (memo, index)=>{
+                let p = new Promise((rs, rj)=>{
+                    c.call(CONST.HOD_APIS.createtextindex,
+                           {index:index, flavor:"standard"},
+                            (err, rsp, body)=>{
+                                if(!err){
+                                    console.error(`Fail to call initDocumentIndexes ${err}`);
+                                    rj({result:false, error:err});
+                                    return;
+                                }
+                                else{
+                                    if(body.error){
+                                        console.error(`Fail to call initDocumentIndexes ${body.error}`);
+                                        rj({result:false, error:body.error});
+                                        return;
+                                    }
+                                    else{
+                                        rs({result:true, error:null});
+                                        return;
+                                    }
+                                }
+                            });
                 });
-            });
-
-            return p;
+                return memo.then(()=>{
+                    return p;
+                });
+            }, Promise.resolve());
         },
 
         /*
          * @param documents, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4
-         *      relativeDocuments:reference0 it is a uuid.v4 array
+         *      relativeDocument:reference0 it is a uuid.v4 array
          *      content:string
          * }]}
          *
@@ -61,18 +66,20 @@ function ConversationPersistentService(){
                          if(err){
                              console.error(`Fail to call addDocumentToIndex->analyzesentiment ${err}`);
                              rj({result:false, error: err});
+                             return;
                          }
                          else{
-                             body = JSON.parse(body);
                              if(body.error){
                                  console.error(`Fail to call addDocumentToIndex->analyzesentiment ${body.error}`);
                                  rj({result:false, error:body.error});
+                                 return;
                              }
                              else{
                                  doc.sentimentScore = body.aggregate.score;
                                  doc.sentimentType = body.aggregate.sentiment;
                                  _documentsWithSentiment.push(doc);
                                  rs({result:true, error:null});
+                                 return;
                              }
                          }
                      });
@@ -86,15 +93,19 @@ function ConversationPersistentService(){
                 let p = new Promise((rs, rj)=>{
                     c.call(CONST.HOD_APIS.addtotextindex, {json:_documentsWithSentiment}, (err, rsp, body)=>{
                         if(!err){
+                            console.error(`Fail to call addDocumentToIndex->addtotextindex(${_documentsWithSentiment}) ${err}`);
                             rj({result:false, error:err});
+                            return;
                         }
                         else{
-                            body = JSON.parse(body);
                             if(body.error){
+                                console.error(`Fail to call addDocumentToIndex->addtotextindex(${_documentsWithSentiment}) ${body.error}`);
                                 rj({result:false, error:body.error});
+                                return;
                             }
                             else{
                                 rs({result:true, error:null});
+                                return;
                             }
                         }
                     });
