@@ -2,14 +2,11 @@
  * Created by shange on 5/21/2016.
  */
  "use strict";
-<<<<<<< .mine "use strict";
 var CONST = require("../common/global").CONST;
-=======var CONST   = require("../common/global").CONST;
->>>>>>> .theirsvar Service = require("./service").Service;
+var Service = require("./service").Service;
+var UUID = require('uuid');
 var fs = require('fs');
-<<<<<<< .minevar fs = require('fs');
-exports.TrainDataParserService = TrainDataParserService;
-=======>>>>>>> .theirs
+
 function TrainDataParserService(){
     let _currentSentimentStatus = CONST.SENTIMENT_TYPES.Neutral;
 
