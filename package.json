@@ -4,14 +4,16 @@
   "description": "Hackathon SH May 21th",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "havenondemand": "^1.2.0",
+    "request": "^2.72.0",
     "uuid": "^2.0.2"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Kert, Edwin, Levi, Flying, Gary",
   "license": "ISC"
 }
