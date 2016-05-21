@@ -4,7 +4,8 @@
   "description": "Hackathon SH May 21th",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "havenondemand": "^1.2.0"
   },
   "devDependencies": {},
   "scripts": {
