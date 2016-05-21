@@ -7,5 +7,4 @@ app.get('/', function (req, res) {
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
-});
-//make conflict here
+//comment merged<<<<<<< .mine//make conflict here=======//comment>>>>>>> .theirs
