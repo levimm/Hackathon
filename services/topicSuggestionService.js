@@ -41,10 +41,10 @@ function TopicSuggestionService(){
                 }
                 extractor(sentence, item=>{
                     console.log(item);
-                    that.getRecommand(item.join(' '), function(err, res, body){
+                    that.getRecommand(item.join(' '), function(err, web, news){
                         if(err != null)
                             console.log(err);
-                        callback(body || []);
+                        callback((web|| []).concat(news ||[]));
                     });
                 });
 
