@@ -21,10 +21,20 @@ answer_suggest.get('/:text', function(req, res){
 	}
 
 	var cs = SF.getService(CS);
-	p = cs.getSuggestAnswers(keyword).then(callback);
+	cs.getSuggestAnswers(keyword).then(callback);
 });
-
 app.use('/answer_suggest', answer_suggest);
+
+var current_sentiment = express.Router();
+current_sentiment.get('/', function(req, res){
+	var cs = SF.getService(CS);
+	var callback = function(response){
+		res.json(response);
+	}
+	cs.estimateCurrentSentimentStatus().then(callback);
+});
+app.use('/current_sentiment', current_sentiment);
+
 
 app.set('port', process.env.PORT || 5000);
 
