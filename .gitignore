@@ -1,3 +1,9 @@
+# ignore npm modules 
+node_modules/
+
+# ignore webstorm
+*.idea/
+
 # Object file
 *.o
 
