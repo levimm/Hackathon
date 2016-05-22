@@ -23,9 +23,29 @@ var cs = SF.getService(CS);
 var recommand = SF.getService(REC);
 var ps = SF.getService(PS);
 var lr = SF.getService(LR);
-recommand.extractKeysCH('指的是将一个汉字序列切分成一个一个单独的词。分词就是将连续的字序列按照一定的规范重新组合成词序列的过程').forEach(item=>{
-    console.log(item);
+/*recommand.extractKeysCH('指的是将一个汉字序列切分成一个一个单独的词。分词就是将连续的字序列按照一定的规范重新组合成词序列的过程',item=>{
+    console.log('bbb '+item);
 });
+
+recommand.extractKeysEN('hello, word. I ate an apple this morning.', item=>{
+    console.log(item);
+});*/
+
+recommand.findRelatedInterests('贴几张新到的美式家具，地板', item=>{
+    console.log(item); 
+});
+
+recommand.findRelatedInterests('hello, word. I ate an apple this morning', item=>{
+    console.log(item); 
+});
+
+
+/*var WordPOS = require('wordpos'),
+    wordpos = new WordPOS();
+
+wordpos.getNouns('The angry bear chased the frightened little squirrel.', function(result){
+    console.log(result);
+});*/
 /*recommand.getRecommand('Trump', function(error, web, news){
     if(error != null){
         console.log ('error occurs');
