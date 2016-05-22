@@ -50,7 +50,7 @@ function ConversationPersistentService(){
         },
 
         /*
-         * @param documents, {document:[{
+         * @param data, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4
          *      relativeDocument:reference0 it is a uuid.v4 array
@@ -58,10 +58,10 @@ function ConversationPersistentService(){
          * }]}
          *
          */
-        addDocumentsToIndex:function(documents, index){
+        addDocumentsToIndex:function(data, index){
              let c = _RL.getHODClient();
              let _documentsWithSentiment = [];
-             return _.reduce(documents.document, (memo, doc)=>{
+             return _.reduce(data.documents, (memo, doc)=>{
                  let p = new Promise((rs, rj)=>{
                      c.call(CONST.HOD_APIS.analyzesentiment, {text:doc.content}, (err, rsp, body)=>{
                          if(err){

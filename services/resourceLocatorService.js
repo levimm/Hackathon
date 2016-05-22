@@ -10,7 +10,9 @@ var path = require('path');
 
 function ResourceLocatorService(){
     //all the training data files should start with trainingData*.txt
-    let _dataRootPath = "../data";
+    let _currentDirPath = __dirname;
+    let _dataRootPath   = path.join(_currentDirPath.substr(0, _currentDirPath.lastIndexOf(path.sep)), "data");
+
     //let _hodAPIkey    = "9056c4dc-ccbc-47a7-9e6b-2bd676851fa5"; //(edwin)
     let _hodAPIkey    = "efb6e1b1-c65d-4fd7-82dd-d6e6dbfe7cc4"; //(levi)
     let _hodVersion   = "v1";
@@ -30,7 +32,7 @@ function ResourceLocatorService(){
             var files = fs.readdirSync(_dataRootPath);
             for (let file of files) {
                 if (file.startsWith('trainingData')) {
-                    contents.push(fs.readFileSync(path.join(_dataRootPath, file).toString()));
+                    contents.push(fs.readFileSync(path.join(_dataRootPath, file)).toString());
                 }
             }
             return contents;

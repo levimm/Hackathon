@@ -110,7 +110,7 @@ var c = lr.getHODClient();
 ////
 //document0.relativeDocument = document1.reference;
 ////
-//ps.addDocumentsToIndex({document:[document1]}, CONST.TITLE_TYPES.Male).then((v)=>{
+//ps.addDocumentsToIndex({documents:[document1]}, CONST.TITLE_TYPES.Male).then((v)=>{
 //    console.log("success added document");
 //}).catch((e)=>{
 //    console.error(e);
@@ -124,9 +124,10 @@ var c = lr.getHODClient();
 //    console.error("fail to call initDocumentIndexes");
 //});
 
-cs.getSuggestAnswers("see you later").then((v)=>{
+cs.getSuggestAnswers("what do you like").then((v)=>{
     v = JSON.stringify(v);
     console.log(`Success ${v}`);
 }).catch((e)=>{
     console.error(`Failed ${e}`);
 });
+

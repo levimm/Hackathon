@@ -2,10 +2,10 @@
  * Created by shange on 5/21/2016.
  */
  "use strict";
-var CONST = require("../common/global").CONST;
+var CONST   = require("../common/global").CONST;
 var Service = require("./service").Service;
-var UUID = require('uuid');
-var fs = require('fs');
+var UUID    = require('uuid');
+var fs      = require('fs');
 
 function TrainDataParserService(){
     let _currentSentimentStatus = CONST.SENTIMENT_TYPES.Neutral;
@@ -23,7 +23,7 @@ function TrainDataParserService(){
          * @return, {documents:[{
          *      title:TITLE_TYPE, define in the global.CONST
          *      reference:string, which is a uuid.v4
-         *      relativeDocument:reference0 it is a uuid.v4 array
+         *      relativedocument:reference0 it is a uuid.v4 array
          *      content:string
          * }]}
          *
@@ -32,18 +32,18 @@ function TrainDataParserService(){
             var documents = [];
             var uuidFormer = UUID.v4();
             var uuidLatter = UUID.v4();
-            content.split('\n').forEach(function (line) { 
+            content.split('\n').forEach(function (line) {
                 var document = {
                     title: line[0] === 'F' ? CONST.TITLE_TYPES.Female : CONST.TITLE_TYPES.Male,
                     reference: uuidFormer,
-                    relativeDocuments: uuidLatter,
+                    relativedocument: uuidLatter,
                     content:  line.slice(line.indexOf(':') + 1).trim() };
                 uuidFormer = uuidLatter;
                 uuidLatter = UUID.v4();
                 documents.push(document);
                 // console.log(document);                
             });
-            return documents;
+            return {documents: documents};
         }
     }
 }
