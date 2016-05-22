@@ -35,6 +35,13 @@ current_sentiment.get('/', function(req, res){
 });
 app.use('/current_sentiment', current_sentiment);
 
+var topic_suggest = express.Router();
+topic_suggest.get('/:text', function(req, res){
+	var cs = SF.getService(CS);
+	cs.getSuggestTopics(req.params.text, res);
+});
+app.use('/topic_suggest', topic_suggest);
+
 
 app.set('port', process.env.PORT || 5000);
 
