@@ -25,7 +25,8 @@ var CONST = {
         addtotextindex:"addtotextindex",
         indexstatus:"indexstatus",
         getcontent:"getcontent",
-        identifylanguage:"identifylanguage"
+        identifylanguage:"identifylanguage",
+        recognizespeech:"recognizespeech"
     }
 };
 
