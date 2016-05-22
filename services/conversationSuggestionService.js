@@ -40,16 +40,6 @@ function ConversationSuggestionService(){
     }
 
     return {
-        /*
-         * Get a suggestion list base on the given topic, the sentiment type is defined in the global
-         * @param topic, string
-         * @return, a Promise object. if success it will return
-         *                     {answers:[{message:string,
-         *                     score:float (-1~1),
-         *                     sentiment:string},
-         *                     ...]}
-         *
-         */
         getSuggestAnswers:function(topic, indexes=[CONST.TITLE_TYPES.Male, CONST.TITLE_TYPES.Female]){
             let p = new Promise((rs, rj)=>{
                 topic = topic.trim();

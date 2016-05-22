@@ -1,6 +1,7 @@
 var CONST = require("./common/global").CONST;
 var SF = require("./services/serviceFactory").ServiceFactory;
 var CS = require("./services/conversationSuggestionService").ConversationSuggestionService;
+var REC = require("./services/topicSuggestionService").TopicSuggestionService;
 var PS = require("./services/conversationPersistentService").ConversationPersistentService;
 var LR = require("./services/resourceLocatorService").ResourceLocatorService;
 var UUID = require("uuid");
@@ -19,8 +20,39 @@ var UUID = require("uuid");
 //});
 console.log(CONST.HOD_APIS.addtotextindex);
 var cs = SF.getService(CS);
+var recommand = SF.getService(REC);
 var ps = SF.getService(PS);
 var lr = SF.getService(LR);
+recommand.extractKeysCH('指的是将一个汉字序列切分成一个一个单独的词。分词就是将连续的字序列按照一定的规范重新组合成词序列的过程').forEach(item=>{
+    console.log(item);
+});
+/*recommand.getRecommand('Trump', function(error, web, news){
+    if(error != null){
+        console.log ('error occurs');
+    }
+    else
+    {
+        // web result;
+        console.log('web results ......');
+        if(web!= null){
+            web.forEach(item=>{
+                console.log(item.Title);
+                console.log(item.Uri);
+                console.log(item.Description);
+            })
+        }
+       
+        console.log('news results .......');
+        if(news!=null){
+            news.forEach(item=>{
+                console.log(item.Title);
+                console.log(item.Uri);
+                console.log(item.Description);
+            })
+        }
+       
+    }
+});*/
 
 var c = lr.getHODClient();
 //c.call(CONST.HOD_APIS.listresources, {}, (err, rsp, body)=>{
