@@ -24,7 +24,7 @@ var recommand = SF.getService(REC);
 var ps = SF.getService(PS);
 var lr = SF.getService(LR);
 
-recommand.getRecommand('Trump', function(error, web, news){
+/*recommand.getRecommand('Trump', function(error, web, news){
     if(error != null){
         console.log ('error occurs');
     }
@@ -39,15 +39,8 @@ recommand.getRecommand('Trump', function(error, web, news){
                 console.log(item.Description);
             })
         }
-        /*for(var i = 0; i <=5; i++){
-            item = web[i];
-            console.log(item.Title );
-            console.log(item.Uri);
-            console.log(item.Description);
-        }*/
+       
         console.log('news results .......');
-        //for(var i = 0; i <=5; i++){
-        //    var item = news[i];
         if(news!=null){
             news.forEach(item=>{
                 console.log(item.Title);
@@ -55,12 +48,9 @@ recommand.getRecommand('Trump', function(error, web, news){
                 console.log(item.Description);
             })
         }
-        /*console.log(item.Title );
-            console.log(item.Uri);
-            console.log(item.Description);
-       */ //}
+       
     }
-});
+});*/
 
 var c = lr.getHODClient();
 //c.call(CONST.HOD_APIS.listresources, {}, (err, rsp, body)=>{
