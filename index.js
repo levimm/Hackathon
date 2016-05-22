@@ -44,13 +44,18 @@ topic_suggest.get('/:text', function(req, res){
 app.use('/topic_suggest', topic_suggest);
 
 
+
+// Find recommanded topics from search engine (bing)
+// invoke: GET http://127.0.0.1:5000/recommanded_topic?lastSentence=hello%20world
+// response: [{Description:'', Title:'', Url:''}, {}, {}]
 var recommanded_topic = express.Router();
 recommanded_topic.get('/', function(req, res){
     var  recommand = SF.getService(REC);
+    console.log(req.query['lastSentence']);
     var callback = function(response){
         res.json(response);
     }
-    recommand.findRelatedInterests( req.params.text, callback);
+    recommand.findRelatedInterests( req.query['lastSentence'], callback);
 });
 
 app.use('/recommanded_topic', recommanded_topic);
