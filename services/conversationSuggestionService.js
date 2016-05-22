@@ -17,7 +17,7 @@ function ConversationSuggestionService(){
     let _lang                  = _resourceLocator.getCurrentLanguage();
 
     function _updateLatestTopics(topic){
-        _latestTopics.push();
+        _latestTopics.push(topic);
         if(_latestTopics.length >= _latestTopicLength){
             _latestTopics.shift();
         }
