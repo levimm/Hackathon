@@ -7,6 +7,7 @@ var Service = require("./service").Service;
 var RL      = require("./resourceLocatorService").ResourceLocatorService;
 var SF      = require("./serviceFactory").ServiceFactory;
 var _       = require("lodash");
+var request = require('request');
 
 
 function ConversationSuggestionService(){
@@ -17,7 +18,7 @@ function ConversationSuggestionService(){
     let _lang                  = _resourceLocator.getCurrentLanguage();
 
     function _updateLatestTopics(topic){
-        _latestTopics.push();
+        _latestTopics.push(topic);
         if(_latestTopics.length >= _latestTopicLength){
             _latestTopics.shift();
         }
@@ -127,6 +128,68 @@ function ConversationSuggestionService(){
             });
 
             return p;
+        },
+		
+        /*
+         * Get suggested topics 
+         * @return an array [topic1, topic2, topic3]
+         */
+        getSuggestTopics:function(conversation_text, res){
+			var get_movie_name = function (_conversation_text) {
+				console.log('get_movie_name', _conversation_text);
+				return new Promise(function(resolve, reject) {
+					request(
+						{ 'url': 'https://api.havenondemand.com/1/api/sync/extractentities/v2?text=' + _conversation_text + '&entity_type=films&show_alternatives=false&apikey=06396def-4147-4cfe-8056-54be3be95314'
+						}, 
+
+						function(e, r, body) {
+							console.log(body.toString());
+							if (body && body.toString().length > 0 && JSON.parse(body.toString()).entities) {
+								console.log(JSON.parse(body.toString()).entities[0]);
+								resolve(JSON.parse(body.toString()).entities[0].normalized_text);
+							}
+							else{
+								reject();
+							}
+						});
+							
+					});
+				};
+			
+			var search_movie = function(keyword) {
+				console.log('search_movie', keyword);
+				return new Promise(function(resolve, reject) {
+					request(
+						{ 'url':'https://api.douban.com/v2/movie/search?q=' + encodeURI(keyword) + '&count=10', 'method': 'GET'
+						}, function(e, r, body) {
+							console.log(JSON.parse(body.toString()).subjects[0].casts[0].id);
+							resolve(JSON.parse(body.toString()).subjects[0].casts[0].id);
+						});
+					});
+			};
+			var search_actor = function(id){
+				console.log('search_actor', id);
+				return new Promise(function(resolve, reject) {
+					request(
+						{'url': 'https://api.douban.com/v2/movie/celebrity/' + id, 'method': 'GET'}, function (e, r, body) {
+								var resp_info = JSON.parse(body.toString()), j;
+								console.log('id=', id);
+								console.log(resp_info);
+								var response = [];
+								for (j = 0; j < 3; j++) {
+									response.push(resp_info.works[j].subject.original_title);
+								}
+								console.log(response);
+								resolve(response);
+						});
+				});
+			}
+			
+			get_movie_name(conversation_text).then((v)=>{
+				search_movie(v).then((v)=>{
+				search_actor(v).then((v)=>{res.json(v);});
+			});
+			});
         },
 
         resetCurrentSentimentStatus:function(){
