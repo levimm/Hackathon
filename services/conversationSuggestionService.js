@@ -45,6 +45,7 @@ function ConversationSuggestionService(){
             let p = new Promise((rs, rj)=>{
                 topic = topic.trim();
                 if(topic){
+                    _updateLatestTopics(topic);
                     let c = _resourceLocator.getHODClient();
                     c.call(CONST.HOD_APIS.findsimilar, {text:topic, indexes:indexes, print:"all"}, (err, rsp, body)=>{
                         if(err){
@@ -98,7 +99,6 @@ function ConversationSuggestionService(){
                                         });
                                         return {message:doc.content, score:doc.weight, sentiment:partnerDoc.sentimentscore};
                                     });
-                                    _updateLatestTopics(topic);
                                     rs({result:answers, error:null});
                                     return;
                                 }).catch((e)=>{
