@@ -4,14 +4,14 @@
 
 var CONST = {
     SENTIMENT_TYPES:{
-        Positive:"Positive",
-        Neutral:"Neutral",
-        Negative:"Negative"
+        Positive:"positive",
+        Neutral:"neutral",
+        Negative:"negative"
     },
 
     TITLE_TYPES:{
-        Male:"Male",
-        Female:"Female"
+        Male:"male",
+        Female:"female"
     },
 
     HOD_APIS:{

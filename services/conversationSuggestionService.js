@@ -57,24 +57,63 @@ function ConversationSuggestionService(){
                     let c = _resourceLocator.getHODClient();
                     c.call(CONST.HOD_APIS.findsimilar, {text:topic, indexes:indexes, print:"all"}, (err, rsp, body)=>{
                         if(err){
+                            err = JSON.stringify(err);
                             console.error(`Fail to call getSuggestAnswers(${topic}) ${err}`);
                             rj({result:false, error:err});
                             return;
                         }
                         else{
                             if(body.error){
+                                body.error = JSON.stringify(body.error);
                                 console.error(`Fail to call getSuggestAnswers(${topic}) ${body.error}`);
                                 rj({result:null, error:body.error});
                                 return;
                             }
                             else{
-                                let documents = body.documents;
-                                let answers = _.map(documents, (doc)=>{
-                                    return {message:doc.content, score:doc.weight, sentiment:doc.sentimentscore};
+                                let documents = _.filter(body.documents, (doc)=>{
+                                    return doc.relativedocument;
                                 });
-                                _updateLatestTopics(topic);
-                                rs({result:answers, error:null});
-                                return;
+                                let answers = [];
+
+                                _.reduce(documents, (memo, doc)=>{
+                                    let p = new Promise((rs, rj)=>{
+                                        let partnerIndex = doc.index == CONST.TITLE_TYPES.Female? CONST.TITLE_TYPES.Male:CONST.TITLE_TYPES.Female;
+                                        c.call(CONST.HOD_APIS.getcontent, {index_reference:doc.relativedocument, print:"all", indexes:[partnerIndex]}, (err, rsp, body)=>{
+                                            if(err){
+                                                err = JSON.stringify(err);
+                                                console.error(`Fail to call getSuggestAnswers(${topic}) ${err}`);
+                                                rj({result:null, error:err})
+                                            }
+                                            else{
+                                                if(body.error){
+                                                    body.error = JSON.stringify(body.error);
+                                                    console.error(`Fail to call getSuggestAnswers(${topic}) ${body.error}`);
+                                                    rj({result:null, error:body.error});
+                                                }
+                                                else{
+                                                    answers = _.union(answers, body.documents);
+                                                    rs({result:true, error:null});
+                                                }
+                                            }
+                                        });
+                                    });
+                                    return memo.then(()=>{
+                                        return p;
+                                    });
+                                }, Promise.resolve()).then(()=>{
+                                    answers = _.map(answers, (doc)=>{
+                                        let partnerDoc = _.find(documents, (pDoc)=>{
+                                            return pDoc.relativedocument == doc.reference;
+                                        });
+                                        return {message:doc.content, score:doc.weight, sentiment:partnerDoc.sentimentscore};
+                                    });
+                                    _updateLatestTopics(topic);
+                                    rs({result:answers, error:null});
+                                    return;
+                                }).catch((e)=>{
+                                    console.error(`Fail to call getSuggestAnswers(${topic}) ${body.error}`);
+                                    rj({result:null, error:body.error});
+                                });
                             }
                         }
                     });
