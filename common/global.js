@@ -22,7 +22,9 @@ var CONST = {
         deletetextindex:"deletetextindex",
         findrelatedconcepts:"findrelatedconcepts",
         findsimilar:"findsimilar",
-        addtotextindex:"addtotextindex"
+        addtotextindex:"addtotextindex",
+        indexstatus:"indexstatus",
+        getcontent:"getcontent"
     }
 };
 
