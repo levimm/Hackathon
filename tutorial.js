@@ -23,7 +23,9 @@ var cs = SF.getService(CS);
 var recommand = SF.getService(REC);
 var ps = SF.getService(PS);
 var lr = SF.getService(LR);
-
+recommand.extractKeysCH('指的是将一个汉字序列切分成一个一个单独的词。分词就是将连续的字序列按照一定的规范重新组合成词序列的过程').forEach(item=>{
+    console.log(item);
+});
 /*recommand.getRecommand('Trump', function(error, web, news){
     if(error != null){
         console.log ('error occurs');
