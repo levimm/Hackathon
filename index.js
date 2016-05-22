@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var SF = require("./services/serviceFactory").ServiceFactory;
 var CS = require("./services/conversationSuggestionService").ConversationSuggestionService;
+var REC = require("./services/TopicSuggestionService").TopicSuggestionService;
 
 app.get('/', function(req, res){
     res.send('Welcome to Flirting Master server');
@@ -34,6 +35,17 @@ current_sentiment.get('/', function(req, res){
 	cs.estimateCurrentSentimentStatus().then(callback);
 });
 app.use('/current_sentiment', current_sentiment);
+
+var recommanded_topic = express.Router();
+recommanded_topic.get('/', function(req, res){
+    var  recommand = SF.getService(REC);
+    var callback = function(response){
+        res.json(response);
+    }
+    recommand.findRelatedInterests( req.params.text, callback);
+});
+
+app.use('/recommanded_topic', recommanded_topic);
 
 
 app.set('port', process.env.PORT || 5000);
