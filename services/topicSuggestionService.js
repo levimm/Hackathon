@@ -6,16 +6,69 @@ var CONST = require("../common/global").CONST;
 var Service = require("./service").Service;
 var Bing = require('node-bing-api')({ accKey: "u+7DcIcPb8wnEahAau+eS+bxmBesRkdnPYLqAweiIkI" });
 var seg = require('segment');
+var Service = require("./service").Service;
+var RL      = require("./resourceLocatorService").ResourceLocatorService;
+var SF      = require("./serviceFactory").ServiceFactory;
+
 function TopicSuggestionService(){
+
+    let _resourceLocator       = SF.getService(RL);
+
 
     var Segment = require('segment');
     var segment = new Segment();
     segment.useDefault();
 
+    var WordPOS = require('wordpos'),
+        wordpos = new WordPOS();
+
+
     return {
 
+        findRelatedInterests:function(sentence, callback){
+            let c = _resourceLocator.getHODClient();
 
-        extractKeysCH: function(sentence){
+            var that = this;
+            var extractor = that.extractKeysEN;
+            c.call( CONST.HOD_APIS.identifylanguage,{text: sentence},function(err, res, body){
+                if(err != null)
+                    console.log(err);
+
+                if(body != null){
+                    if(body.language == "japanese" || body.language == "chinese"){
+                        extractor = that.extractKeysCH;
+                    }
+                }
+                extractor(sentence, item=>{
+                    console.log(item);
+                    that.getRecommand(item.join(' '), function(err, res, body){
+                        if(err != null)
+                            console.log(err);
+                        callback(body || []);
+                    });
+                });
+
+                    
+            });
+            /*extractor(sentence, item=>{
+                console.log(item);
+                that.getRecommand(item.join(' '), function(err, res, body){
+                    if(err != null)
+                        console.log(err);
+                    callback(body || []);
+                });
+            });*/
+        },
+
+        extractKeysEN:function(sentence, callback){
+            console.log('extract key EN: ' + sentence);
+            wordpos.getNouns(sentence, function(result){
+                callback(result);
+            });
+        },
+
+        extractKeysCH: function(sentence, callback){
+            console.log('extract key CH: ' + sentence);
             var result = [];
             segment.doSegment(sentence).forEach(item=>{
                 // only fetch noun.
@@ -23,7 +76,8 @@ function TopicSuggestionService(){
                     result.push(item.w);
                 }
             });
-            return result;
+            
+            process.nextTick(callback.bind(undefined,result));
         },
         /*
           example:
@@ -56,6 +110,7 @@ function TopicSuggestionService(){
 
          */
         getRecommand: function(keyWord, callback){
+            console.log('keyworkd: '+ keyWord);
             //Bing.;
             Bing.composite(keyWord, {
                 top: 10,  // Number of results (max 50) 

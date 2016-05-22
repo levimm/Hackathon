@@ -24,7 +24,8 @@ var CONST = {
         findsimilar:"findsimilar",
         addtotextindex:"addtotextindex",
         indexstatus:"indexstatus",
-        getcontent:"getcontent"
+        getcontent:"getcontent",
+        identifylanguage:"identifylanguage"
     }
 };
 
