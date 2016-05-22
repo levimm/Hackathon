@@ -4,7 +4,6 @@
 
 var serviceFactory = {
     getService:function(service){
-        console.log(service.__proto__);
         return service.getInstance();
     }
 };
