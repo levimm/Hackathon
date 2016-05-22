@@ -21,7 +21,7 @@ answer_suggest.get('/:text', function(req, res){
 	}
 
 	var cs = SF.getService(CS);
-	cs.getSuggestAnswers(keyword, callback);
+	p = cs.getSuggestAnswers(keyword).then(callback);
 });
 
 app.use('/answer_suggest', answer_suggest);
